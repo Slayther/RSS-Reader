@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 public class RSSReader : MonoBehaviour
@@ -62,6 +63,8 @@ public class RSSReader : MonoBehaviour
 			string title = newsItem ["title"].InnerText;
 			string description = newsItem ["description"].InnerText;
 			string link = newsItem ["link"].InnerText;
+
+			description = Regex.Replace(description, "\n*<.+>", "");
 
 			GameObject newNewsItem = cloneObject (newsItemObject, gameObject);
 			newNewsItem.GetComponent<NewsItem> ().setNewsItemInfo (title, description, link);
